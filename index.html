@@ -296,8 +296,12 @@
   </div>
 </div>
 <script>
-(function(){function h(){try{parent.postMessage({type:"ti-card-height",height:document.body.scrollHeight},"*");}catch(e){}}
+(function(){
+function h(){try{parent.postMessage({type:"ti-card-height",height:document.documentElement.scrollHeight},"*");}catch(e){}}
 window.addEventListener("load",h);window.addEventListener("resize",h);setTimeout(h,300);
-window.addEventListener("message",function(e){var d=e&&e.data;if(d&&(d.type==="ti-theme"||d.theme)){var t=(d.theme==="dark")?"dark":"light";document.documentElement.setAttribute("data-theme",t);h();}});})();
+if(window.ResizeObserver){try{new ResizeObserver(function(){h();}).observe(document.body);}catch(e){}}
+document.addEventListener("change",function(e){var t=e.target;if(t&&(""+t.className).indexOf("exp")>-1){h();setTimeout(h,80);}});
+window.addEventListener("message",function(e){var d=e&&e.data;if(d&&(d.type==="ti-theme"||d.theme)){var th=(d.theme==="dark")?"dark":"light";document.documentElement.setAttribute("data-theme",th);h();}});
+})();
 </script>
 </body></html>
